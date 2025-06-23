@@ -1,11 +1,33 @@
 "use client";
 
+import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
-import DashboardLayout from '@/components/dashboard/dashboard-layout';
-import DashboardStats from '@/components/dashboard/dashboard-stats';
-import RecentCourses from '@/components/dashboard/recent-courses';
-import LearningProgress from '@/components/dashboard/learning-progress';
-import QuickActions from '@/components/dashboard/quick-actions';
+
+// Dynamically import components to avoid SSR issues
+const DashboardLayout = dynamic(() => import('@/components/dashboard/dashboard-layout'), {
+  ssr: false,
+  loading: () => <div className="flex items-center justify-center min-h-screen">Loading...</div>
+});
+
+const DashboardStats = dynamic(() => import('@/components/dashboard/dashboard-stats'), {
+  ssr: false,
+  loading: () => <div className="h-32 bg-gray-100 animate-pulse rounded-lg"></div>
+});
+
+const RecentCourses = dynamic(() => import('@/components/dashboard/recent-courses'), {
+  ssr: false,
+  loading: () => <div className="h-64 bg-gray-100 animate-pulse rounded-lg"></div>
+});
+
+const LearningProgress = dynamic(() => import('@/components/dashboard/learning-progress'), {
+  ssr: false,
+  loading: () => <div className="h-96 bg-gray-100 animate-pulse rounded-lg"></div>
+});
+
+const QuickActions = dynamic(() => import('@/components/dashboard/quick-actions'), {
+  ssr: false,
+  loading: () => <div className="h-64 bg-gray-100 animate-pulse rounded-lg"></div>
+});
 
 export default function Dashboard() {
   return (

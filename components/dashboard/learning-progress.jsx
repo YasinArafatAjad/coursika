@@ -1,18 +1,12 @@
 "use client";
 
 import { motion } from 'framer-motion';
-import { Suspense, lazy } from 'react';
-
-// Lazy load the chart component to avoid SSR issues
-const BarChart = lazy(() => import('recharts').then(module => ({ default: module.BarChart })));
-const Bar = lazy(() => import('recharts').then(module => ({ default: module.Bar })));
-const XAxis = lazy(() => import('recharts').then(module => ({ default: module.XAxis })));
-const YAxis = lazy(() => import('recharts').then(module => ({ default: module.YAxis })));
-const CartesianGrid = lazy(() => import('recharts').then(module => ({ default: module.CartesianGrid })));
-const Tooltip = lazy(() => import('recharts').then(module => ({ default: module.Tooltip })));
-const ResponsiveContainer = lazy(() => import('recharts').then(module => ({ default: module.ResponsiveContainer })));
+import { useState, useEffect } from 'react';
 
 export default function LearningProgress() {
+  const [isClient, setIsClient] = useState(false);
+  const [chartComponents, setChartComponents] = useState(null);
+
   const data = [
     { name: 'জানুয়ারি', hours: 12 },
     { name: 'ফেব্রুয়ারি', hours: 19 },
@@ -21,6 +15,57 @@ export default function LearningProgress() {
     { name: 'মে', hours: 22 },
     { name: 'জুন', hours: 30 },
   ];
+
+  useEffect(() => {
+    setIsClient(true);
+    
+    // Dynamically import recharts only on client side
+    const loadCharts = async () => {
+      try {
+        const recharts = await import('recharts');
+        setChartComponents({
+          BarChart: recharts.BarChart,
+          Bar: recharts.Bar,
+          XAxis: recharts.XAxis,
+          YAxis: recharts.YAxis,
+          CartesianGrid: recharts.CartesianGrid,
+          Tooltip: recharts.Tooltip,
+          ResponsiveContainer: recharts.ResponsiveContainer,
+        });
+      } catch (error) {
+        console.error('Failed to load charts:', error);
+      }
+    };
+
+    loadCharts();
+  }, []);
+
+  const renderChart = () => {
+    if (!isClient || !chartComponents) {
+      return (
+        <div className="flex items-center justify-center h-full">
+          <div className="text-gray-500">Loading chart...</div>
+        </div>
+      );
+    }
+
+    const { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } = chartComponents;
+
+    return (
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart data={data}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip 
+            formatter={(value) => [`${value} ঘন্টা`, 'শেখার সময়']}
+            labelStyle={{ color: '#374151' }}
+          />
+          <Bar dataKey="hours" fill="#dc2626" radius={[4, 4, 0, 0]} />
+        </BarChart>
+      </ResponsiveContainer>
+    );
+  };
 
   return (
     <motion.div
@@ -34,20 +79,7 @@ export default function LearningProgress() {
       </h2>
 
       <div className="h-80">
-        <Suspense fallback={<div className="flex items-center justify-center h-full">Loading chart...</div>}>
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={data}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip 
-                formatter={(value) => [`${value} ঘন্টা`, 'শেখার সময়']}
-                labelStyle={{ color: '#374151' }}
-              />
-              <Bar dataKey="hours" fill="#dc2626" radius={[4, 4, 0, 0]} />
-            </BarChart>
-          </ResponsiveContainer>
-        </Suspense>
+        {renderChart()}
       </div>
 
       <div className="mt-6 grid grid-cols-3 gap-4">
