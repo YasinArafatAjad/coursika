@@ -45,7 +45,7 @@ export default function Header() {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
           ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg'
-          : 'bg-transparent text-zinc-200'
+          : 'bg-transparent'
       }`}
     >
       <div className="container mx-auto px-4">
@@ -58,7 +58,11 @@ export default function Header() {
               <div className="w-8 h-8 bg-gradient-to-br from-red-500 to-red-600 rounded-lg flex items-center justify-center">
                 <BookOpen className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xl lg:text-2xl font-bold text-gray-900 dark:text-white">
+              <span className={`text-xl lg:text-2xl font-bold transition-colors ${
+                isScrolled 
+                  ? 'text-gray-900 dark:text-white' 
+                  : 'text-white'
+              }`}>
                 Coursika
               </span>
             </motion.div>
@@ -70,7 +74,11 @@ export default function Header() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-gray-600 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 transition-colors"
+                className={`transition-colors hover:text-red-400 ${
+                  isScrolled
+                    ? 'text-gray-600 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400'
+                    : 'text-zinc-200 hover:text-white'
+                }`}
               >
                 {item.name}
               </Link>
@@ -79,30 +87,46 @@ export default function Header() {
 
           {/* Desktop Actions */}
           <div className="hidden lg:flex items-center space-x-4">
-            <Button variant="ghost" size="sm">
+            <Button 
+              variant="ghost" 
+              size="sm"
+              className={isScrolled ? '' : 'text-zinc-200 hover:text-white hover:bg-white/10'}
+            >
               <Search className="w-4 h-4" />
             </Button>
             <Button
               variant="ghost"
               size="sm"
               onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              className={isScrolled ? '' : 'text-zinc-200 hover:text-white hover:bg-white/10'}
             >
               {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </Button>
-            <Button variant="ghost" size="sm">
+            <Button 
+              variant="ghost" 
+              size="sm"
+              className={isScrolled ? '' : 'text-zinc-200 hover:text-white hover:bg-white/10'}
+            >
               <ShoppingCart className="w-4 h-4" />
               <span className="ml-1 text-xs bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center">
                 3
               </span>
             </Button>
             <Link href="/login">
-              <Button variant="outline" size="sm">
+              <Button 
+                variant="outline" 
+                size="sm"
+                className={isScrolled 
+                  ? 'border-gray-300 text-gray-700 hover:bg-gray-50' 
+                  : 'border-zinc-200 text-zinc-200 hover:bg-white/10 hover:text-white'
+                }
+              >
                 <LogIn className="w-4 h-4 mr-2" />
                 লগইন
               </Button>
             </Link>
             <Link href="/dashboard">
-              <Button size="sm" className="bg-red-600 hover:bg-red-700">
+              <Button size="sm" className="bg-red-600 hover:bg-red-700 text-white">
                 <User className="w-4 h-4 mr-2" />
                 ড্যাশবোর্ড
               </Button>
@@ -113,7 +137,7 @@ export default function Header() {
           <Button
             variant="ghost"
             size="sm"
-            className="lg:hidden"
+            className={`lg:hidden ${isScrolled ? '' : 'text-zinc-200 hover:text-white hover:bg-white/10'}`}
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -126,25 +150,43 @@ export default function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden border-t border-gray-200 dark:border-gray-700"
+            className={`lg:hidden border-t ${
+              isScrolled 
+                ? 'border-gray-200 dark:border-gray-700 bg-white/95 dark:bg-gray-900/95' 
+                : 'border-zinc-200/20 bg-black/20 backdrop-blur-md'
+            }`}
           >
             <div className="py-4 space-y-4">
               {navItems.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="block text-gray-600 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 transition-colors"
+                  className={`block transition-colors ${
+                    isScrolled
+                      ? 'text-gray-600 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400'
+                      : 'text-zinc-200 hover:text-white'
+                  }`}
                   onClick={() => setIsOpen(false)}
                 >
                   {item.name}
                 </Link>
               ))}
-              <div className="flex items-center space-x-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                <Button variant="outline" size="sm" className="flex-1">
+              <div className={`flex items-center space-x-4 pt-4 border-t ${
+                isScrolled ? 'border-gray-200 dark:border-gray-700' : 'border-zinc-200/20'
+              }`}>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className={`flex-1 ${
+                    isScrolled 
+                      ? 'border-gray-300 text-gray-700 hover:bg-gray-50' 
+                      : 'border-zinc-200 text-zinc-200 hover:bg-white/10 hover:text-white'
+                  }`}
+                >
                   <LogIn className="w-4 h-4 mr-2" />
                   লগইন
                 </Button>
-                <Button size="sm" className="flex-1 bg-red-600 hover:bg-red-700">
+                <Button size="sm" className="flex-1 bg-red-600 hover:bg-red-700 text-white">
                   <User className="w-4 h-4 mr-2" />
                   ড্যাশবোর্ড
                 </Button>
