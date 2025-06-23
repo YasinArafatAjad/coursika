@@ -46,12 +46,9 @@ export default function UserSidebar({ isOpen, onClose }) {
       </AnimatePresence>
 
       {/* Sidebar */}
-      <motion.div
-        initial={{ x: -300 }}
-        animate={{ x: isOpen ? 0 : -300 }}
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        className="fixed left-0 top-0 h-full w-64 bg-white dark:bg-gray-800 shadow-lg z-50 lg:translate-x-0 lg:static lg:z-auto"
-      >
+      <div className={`fixed left-0 top-0 h-full w-64 bg-white dark:bg-gray-800 shadow-lg z-50 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:z-auto ${
+        isOpen ? 'translate-x-0' : '-translate-x-full'
+      }`}>
         <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
           <Link href="/dashboard" className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-gradient-to-br from-red-500 to-red-600 rounded-lg flex items-center justify-center">
@@ -94,7 +91,7 @@ export default function UserSidebar({ isOpen, onClose }) {
             })}
           </ul>
         </nav>
-      </motion.div>
+      </div>
     </>
   );
 }

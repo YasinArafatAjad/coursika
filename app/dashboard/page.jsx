@@ -14,10 +14,10 @@ export default function UserDashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex">
       <UserSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       
-      <div className="lg:pl-64">
+      <div className="flex-1 lg:ml-64">
         <UserHeader onMenuClick={() => setSidebarOpen(true)} />
         
         <main className="p-6">

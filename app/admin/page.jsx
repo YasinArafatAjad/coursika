@@ -14,10 +14,10 @@ export default function AdminDashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex">
       <AdminSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       
-      <div className="lg:pl-64">
+      <div className="flex-1 lg:ml-64">
         <AdminHeader onMenuClick={() => setSidebarOpen(true)} />
         
         <main className="p-6">
