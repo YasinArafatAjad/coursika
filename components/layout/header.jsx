@@ -174,22 +174,31 @@ export default function Header() {
               <div className={`flex items-center space-x-4 pt-4 border-t ${
                 isScrolled ? 'border-gray-200 dark:border-gray-700' : 'border-zinc-200/20'
               }`}>
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  className={`flex-1 ${
-                    isScrolled 
-                      ? 'border-gray-300 text-gray-700 hover:bg-gray-50' 
-                      : 'border-zinc-200 text-zinc-200 hover:bg-white/10 hover:text-white'
-                  }`}
-                >
-                  <LogIn className="w-4 h-4 mr-2" />
-                  লগইন
-                </Button>
-                <Button size="sm" className="flex-1 bg-red-600 hover:bg-red-700 text-white">
-                  <User className="w-4 h-4 mr-2" />
-                  ড্যাশবোর্ড
-                </Button>
+                <Link href="/login" className="flex-1">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className={`w-full ${
+                      isScrolled 
+                        ? 'border-gray-300 text-gray-700 hover:bg-gray-50' 
+                        : 'border-zinc-200 text-zinc-200 hover:bg-white/10 hover:text-white'
+                    }`}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <LogIn className="w-4 h-4 mr-2" />
+                    লগইন
+                  </Button>
+                </Link>
+                <Link href="/dashboard" className="flex-1">
+                  <Button 
+                    size="sm" 
+                    className="w-full bg-red-600 hover:bg-red-700 text-white"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <User className="w-4 h-4 mr-2" />
+                    ড্যাশবোর্ড
+                  </Button>
+                </Link>
               </div>
             </div>
           </motion.div>
