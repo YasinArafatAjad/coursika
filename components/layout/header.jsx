@@ -102,16 +102,18 @@ export default function Header() {
             >
               {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </Button>
-            <Button 
-              variant="ghost" 
-              size="sm"
-              className={isScrolled ? '' : 'text-zinc-200 hover:text-white hover:bg-white/10'}
-            >
-              <ShoppingCart className="w-4 h-4" />
-              <span className="ml-1 text-xs bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center">
-                3
-              </span>
-            </Button>
+            <Link href="/cart">
+              <Button 
+                variant="ghost" 
+                size="sm"
+                className={isScrolled ? '' : 'text-zinc-200 hover:text-white hover:bg-white/10'}
+              >
+                <ShoppingCart className="w-4 h-4" />
+                <span className="ml-1 text-xs bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center">
+                  3
+                </span>
+              </Button>
+            </Link>
             <Link href="/login">
               <Button 
                 variant="outline" 
