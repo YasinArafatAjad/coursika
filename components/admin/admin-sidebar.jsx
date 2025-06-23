@@ -48,8 +48,8 @@ export default function AdminSidebar({ isOpen, onClose }) {
       </AnimatePresence>
 
       {/* Sidebar */}
-      <div className={`fixed left-0 top-0 h-full w-64 bg-white dark:bg-gray-800 shadow-lg z-50 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:z-auto ${
-        isOpen ? 'translate-x-0' : '-translate-x-full'
+      <div className={`fixed left-0 top-0 min-h-screen w-64 bg-white dark:bg-gray-800 shadow-lg z-50 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:relative lg:z-auto ${
+        isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
       }`}>
         <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
           <Link href="/admin" className="flex items-center space-x-2">
