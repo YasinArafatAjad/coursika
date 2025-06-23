@@ -1,7 +1,16 @@
 "use client";
 
 import { motion } from 'framer-motion';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { Suspense, lazy } from 'react';
+
+// Lazy load the chart component to avoid SSR issues
+const BarChart = lazy(() => import('recharts').then(module => ({ default: module.BarChart })));
+const Bar = lazy(() => import('recharts').then(module => ({ default: module.Bar })));
+const XAxis = lazy(() => import('recharts').then(module => ({ default: module.XAxis })));
+const YAxis = lazy(() => import('recharts').then(module => ({ default: module.YAxis })));
+const CartesianGrid = lazy(() => import('recharts').then(module => ({ default: module.CartesianGrid })));
+const Tooltip = lazy(() => import('recharts').then(module => ({ default: module.Tooltip })));
+const ResponsiveContainer = lazy(() => import('recharts').then(module => ({ default: module.ResponsiveContainer })));
 
 export default function LearningProgress() {
   const data = [
@@ -25,18 +34,20 @@ export default function LearningProgress() {
       </h2>
 
       <div className="h-80">
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={data}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip 
-              formatter={(value) => [`${value} ঘন্টা`, 'শেখার সময়']}
-              labelStyle={{ color: '#374151' }}
-            />
-            <Bar dataKey="hours" fill="#dc2626" radius={[4, 4, 0, 0]} />
-          </BarChart>
-        </ResponsiveContainer>
+        <Suspense fallback={<div className="flex items-center justify-center h-full">Loading chart...</div>}>
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={data}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip 
+                formatter={(value) => [`${value} ঘন্টা`, 'শেখার সময়']}
+                labelStyle={{ color: '#374151' }}
+              />
+              <Bar dataKey="hours" fill="#dc2626" radius={[4, 4, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        </Suspense>
       </div>
 
       <div className="mt-6 grid grid-cols-3 gap-4">
