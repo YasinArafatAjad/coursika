@@ -53,8 +53,7 @@ export default function DashboardLayout({ children }) {
         initial={{ x: -280 }}
         animate={{ x: isSidebarOpen ? 0 : -280 }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        className="fixed left-0 top-0 z-50 h-full w-70 bg-white dark:bg-gray-800 shadow-xl lg:translate-x-0 lg:shadow-none lg:border-r lg:border-gray-200 dark:lg:border-gray-700"
-        style={{ width: '280px' }}
+        className="fixed left-0 top-0 z-50 h-full w-[280px] bg-white dark:bg-gray-800 shadow-xl lg:translate-x-0 lg:shadow-none lg:border-r lg:border-gray-200 dark:lg:border-gray-700"
       >
         <div className="flex flex-col h-full">
           {/* Header */}
@@ -123,7 +122,7 @@ export default function DashboardLayout({ children }) {
       </motion.aside>
 
       {/* Main content */}
-      <div className="lg:ml-70" style={{ marginLeft: '280px' }}>
+      <div className="lg:ml-[280px]">
         {/* Top header */}
         <header className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between p-4">
