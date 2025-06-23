@@ -127,10 +127,10 @@ export default function Header() {
                 লগইন
               </Button>
             </Link>
-            <Link href="/dashboard">
+            <Link href="/profile">
               <Button size="sm" className="bg-red-600 hover:bg-red-700 text-white">
                 <User className="w-4 h-4 mr-2" />
-                ড্যাশবোর্ড
+                প্রোফাইল
               </Button>
             </Link>
           </div>
@@ -191,14 +191,14 @@ export default function Header() {
                     লগইন
                   </Button>
                 </Link>
-                <Link href="/dashboard" className="flex-1">
+                <Link href="/profile" className="flex-1">
                   <Button 
                     size="sm" 
                     className="w-full bg-red-600 hover:bg-red-700 text-white"
                     onClick={() => setIsOpen(false)}
                   >
                     <User className="w-4 h-4 mr-2" />
-                    ড্যাশবোর্ড
+                    প্রোফাইল
                   </Button>
                 </Link>
               </div>
