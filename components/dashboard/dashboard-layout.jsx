@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { 
@@ -25,7 +25,12 @@ import { useTheme } from '@/components/theme-provider';
 
 export default function DashboardLayout({ children }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const sidebarItems = [
     { icon: Home, label: 'ড্যাশবোর্ড', href: '/dashboard', active: true },
@@ -34,9 +39,20 @@ export default function DashboardLayout({ children }) {
     { icon: Award, label: 'সার্টিফিকেট', href: '/dashboard/certificates' },
     { icon: ShoppingCart, label: 'পারচেজ হিস্টরি', href: '/dashboard/purchases' },
     { icon: MessageCircle, label: 'মেসেজ', href: '/dashboard/messages' },
-    { icon: User, label: 'প্রোফাইল', href: '/dashboard/profile' },
-    { icon: Settings, label: 'সেটিংস', href: '/dashboard/settings' },
+    { icon: User, label: 'প্রোফাইল', href: '/profile' },
+    { icon: Settings, label: 'সেটিংস', href: '/settings' },
   ];
+
+  // Don't render theme-dependent content until mounted
+  if (!mounted) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600"></div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">

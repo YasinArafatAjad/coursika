@@ -34,6 +34,8 @@ export default function LearningProgress() {
         });
       } catch (error) {
         console.error('Failed to load charts:', error);
+        // Set a fallback state to prevent infinite loading
+        setChartComponents(false);
       }
     };
 
@@ -41,7 +43,23 @@ export default function LearningProgress() {
   }, []);
 
   const renderChart = () => {
-    if (!isClient || !chartComponents) {
+    if (!isClient) {
+      return (
+        <div className="flex items-center justify-center h-full">
+          <div className="text-gray-500">Loading chart...</div>
+        </div>
+      );
+    }
+
+    if (chartComponents === false) {
+      return (
+        <div className="flex items-center justify-center h-full">
+          <div className="text-gray-500">Chart unavailable</div>
+        </div>
+      );
+    }
+
+    if (!chartComponents) {
       return (
         <div className="flex items-center justify-center h-full">
           <div className="text-gray-500">Loading chart...</div>
