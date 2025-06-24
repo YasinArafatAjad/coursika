@@ -120,7 +120,7 @@ export default function Header() {
                 size="sm"
                 className={isScrolled 
                   ? 'border-gray-300 text-gray-700 hover:bg-gray-50' 
-                  : 'border-zinc-200 text-zinc-200 hover:bg-white/10 hover:text-white'
+                  : 'border-zinc-200 text-red-600 hover:bg-white/10 hover:text-white'
                 }
               >
                 <LogIn className="w-4 h-4 mr-2" />
