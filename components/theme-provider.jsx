@@ -20,18 +20,20 @@ export function ThemeProvider({
     setMounted(true);
     
     // Only access localStorage after component mounts
-    try {
-      const storedTheme = localStorage.getItem(storageKey);
-      if (storedTheme) {
-        setTheme(storedTheme);
+    if (typeof window !== 'undefined') {
+      try {
+        const storedTheme = localStorage.getItem(storageKey);
+        if (storedTheme) {
+          setTheme(storedTheme);
+        }
+      } catch (error) {
+        console.warn('Failed to access localStorage:', error);
       }
-    } catch (error) {
-      console.warn('Failed to access localStorage:', error);
     }
   }, [storageKey]);
 
   useEffect(() => {
-    if (!mounted) return;
+    if (!mounted || typeof window === 'undefined') return;
     
     const root = window.document.documentElement;
     root.classList.remove('light', 'dark');
@@ -50,11 +52,15 @@ export function ThemeProvider({
   const value = {
     theme,
     setTheme: (newTheme) => {
-      try {
-        localStorage.setItem(storageKey, newTheme);
-        setTheme(newTheme);
-      } catch (error) {
-        console.warn('Failed to save theme to localStorage:', error);
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.setItem(storageKey, newTheme);
+          setTheme(newTheme);
+        } catch (error) {
+          console.warn('Failed to save theme to localStorage:', error);
+          setTheme(newTheme);
+        }
+      } else {
         setTheme(newTheme);
       }
     },
