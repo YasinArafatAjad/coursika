@@ -127,7 +127,7 @@ export default function Header() {
                 লগইন
               </Button>
             </Link>
-            <Link href="/profile">
+            <Link href="/dashboard">
               <Button size="sm" className="bg-red-600 hover:bg-red-700 text-white">
                 <User className="w-4 h-4 mr-2" />
                 প্রোফাইল
