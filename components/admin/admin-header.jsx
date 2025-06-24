@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useTheme } from '@/components/theme-provider';
 import { Sun, Moon } from 'lucide-react';
+import LanguageSwitcher from '@/components/ui/language-switcher';
 
 export default function AdminHeader({ onMenuClick }) {
   const { theme, setTheme } = useTheme();
@@ -32,6 +33,8 @@ export default function AdminHeader({ onMenuClick }) {
         </div>
 
         <div className="flex items-center space-x-4">
+          <LanguageSwitcher className="hidden sm:block" />
+          
           <Button
             variant="ghost"
             size="sm"

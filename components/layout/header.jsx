@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTheme } from '@/components/theme-provider';
+import LanguageSwitcher from '@/components/ui/language-switcher';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -94,6 +95,12 @@ export default function Header() {
             >
               <Search className="w-4 h-4" />
             </Button>
+            
+            <LanguageSwitcher 
+              variant={isScrolled ? 'default' : 'ghost'}
+              className="hidden sm:block"
+            />
+            
             <Button
               variant="ghost"
               size="sm"
@@ -173,6 +180,15 @@ export default function Header() {
                   {item.name}
                 </Link>
               ))}
+              
+              {/* Mobile Language Switcher */}
+              <div className="pt-2">
+                <LanguageSwitcher 
+                  variant={isScrolled ? 'default' : 'ghost'}
+                  className="w-full"
+                />
+              </div>
+              
               <div className={`flex items-center space-x-4 pt-4 border-t ${
                 isScrolled ? 'border-gray-200 dark:border-gray-700' : 'border-zinc-200/20'
               }`}>
@@ -191,14 +207,14 @@ export default function Header() {
                     লগইন
                   </Button>
                 </Link>
-                <Link href="/profile" className="flex-1">
+                <Link href="/dashboard" className="flex-1">
                   <Button 
                     size="sm" 
                     className="w-full bg-red-600 hover:bg-red-700 text-white"
                     onClick={() => setIsOpen(false)}
                   >
                     <User className="w-4 h-4 mr-2" />
-                    প্রোফাইল
+                    ড্যাশবোর্ড
                   </Button>
                 </Link>
               </div>
