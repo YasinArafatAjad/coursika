@@ -25,7 +25,7 @@ const reviews = [
     student: 'রহিম উদ্দিন',
     rating: 5,
     comment: 'অসাধারণ কোর্স! ইন্সট্রাক্টর খুবই ভালো ভাবে বুঝিয়েছেন। প্র্যাক্টিক্যাল প্রজেক্ট গুলো খুবই কার্যকর ছিল।',
-    date: '২০২ৄ-০৬-১৫',
+    date: '২০২৪-০৬-১৫',
     status: 'Approved',
     helpful: 12,
     avatar: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=50'

@@ -8,7 +8,8 @@ const nextConfig = {
   trailingSlash: true,
   experimental: {
     esmExternals: 'loose'
-  }
+  },
+  transpilePackages: ['lucide-react']
 };
 
 module.exports = nextConfig;
